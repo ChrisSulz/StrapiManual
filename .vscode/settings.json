@@ -1,0 +1,20 @@
+{
+    "cmake.configureOnOpen": true,
+
+    // "artificialDelayMilliseconds": 700,
+    
+    // "restoreTerminals.terminals": [
+    //     {
+    //       "splitTerminals": [
+    //         {
+    //           "name": "Strapi",
+    //           "commands": ["cd ./public/my-project/", "npx strapi start"]
+    //         },
+    //         {
+    //           "name": "Cypress",
+    //           "commands": ["npx cypress open"]
+    //         }
+    //       ]
+    //     }
+    // ]
+}
