@@ -7,10 +7,16 @@ describe('My Tests', () => {
     });
 
     beforeEach(() => {
-        cy.visit("/admin")
+        cy.visit("/admin")  
     })
   
     it('first test', () => {
-      cy.contains("Content Manager").click()
+      cy.contains("Content Manager")
+        .click()
+      cy.wait(1000)
+      cy.screenshot("contentmanager", {
+          capture: "fullPage",
+          overwrite: true,
+        });
     });
   });
