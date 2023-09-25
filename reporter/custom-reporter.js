@@ -53,6 +53,18 @@ class CustomReporter {
         resultHTML += `<h2>${step.title}</h2>\n`;
         step.commands.forEach((command) => {
           resultHTML += `<p>${command}</p>\n`;
+
+          // Füge Screenshot als <img> ein, falls der Befehl cy.screenshot enthalten ist
+          //   const screenshotMatch = command.match(/cy\.screenshot\("([^"]+)"\)/);
+          //   if (screenshotMatch) {
+          //     const screenshotName = screenshotMatch[1];
+          //     const screenshotPath = path.join(
+          //       "cypress/screenshots",
+          //       `${test.describe}`,
+          //       `${screenshotName}.png`
+          //     );
+          //     resultHTML += `<img src="${screenshotPath}" alt="${screenshotName}">\n`;
+          //   }
         });
       });
 
