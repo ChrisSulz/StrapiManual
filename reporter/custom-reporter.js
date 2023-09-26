@@ -61,6 +61,12 @@ class CustomReporter {
         step.commands.forEach((command) => {
           resultHTML += `<p>${command}</p>\n`;
 
+          const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
+          if (screenshotMatch) {
+            const screenshotName = screenshotMatch[0].match(/"([^"]+)"/)[1];
+            resultHTML += `<img src="../screenshots/strapi00.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
+          }
+
           // Füge Screenshot als <img> ein, falls der Befehl cy.screenshot enthalten ist
           //   const screenshotMatch = command.match(/cy\.screenshot\("([^"]+)"\)/);
           //   if (screenshotMatch) {
