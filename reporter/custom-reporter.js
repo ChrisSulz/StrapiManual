@@ -36,12 +36,15 @@ class CustomReporter {
 
   extractCypressCommands(testBody) {
     const cypressCommands = [];
-    const bodyLines = testBody.split("\n");
+    const bodyLines = testBody.split(";");
+  
     bodyLines.forEach((line) => {
-      if (line.includes("cy.") && !line.includes("cy.screenshot")) {
-        cypressCommands.push(line.trim());
+      const trimmedLine = line.trim();
+      if (trimmedLine.startsWith("cy.")) {
+        cypressCommands.push(trimmedLine);
       }
     });
+  
     return cypressCommands;
   }
 
