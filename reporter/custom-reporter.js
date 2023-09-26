@@ -8,6 +8,7 @@ class CustomReporter {
       "cypress/custom-reports";
     this.testResults = [];
 
+    // Event-Listener für Test-Suite "describe" --> currentTest
     runner.on("suite", (suite) => {
       this.currentTest = {
         describe: suite.title,
@@ -15,6 +16,7 @@ class CustomReporter {
       };
     });
 
+    // Event-Listener für Test "it" --> step
     runner.on("test", (test) => {
       const step = {
         title: test.title,
@@ -26,6 +28,7 @@ class CustomReporter {
       this.currentTest.steps.push(step);
     });
 
+    // Event-Listener für Testabschluss
     runner.on("end", () => {
       this.testResults.push(this.currentTest);
       const htmlContent = this.generateHTML();
@@ -36,15 +39,14 @@ class CustomReporter {
 
   extractCypressCommands(testBody) {
     const cypressCommands = [];
-    const bodyLines = testBody.split(";");
-  
-    bodyLines.forEach((line) => {
-      const trimmedLine = line.trim();
-      if (trimmedLine.startsWith("cy.")) {
-        cypressCommands.push(trimmedLine);
-      }
-    });
-  
+
+    const regex = /cy\.[\s\S]*?;/g;
+
+    let match;
+    while ((match = regex.exec(testBody)) !== null) {
+      cypressCommands.push(match[0]);
+    }
+
     return cypressCommands;
   }
 
