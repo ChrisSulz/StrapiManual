@@ -51,8 +51,10 @@ class CustomReporter {
   }
 
   generateHTML() {
-    const formattedResults = this.testResults.map((test) => {
-      let resultHTML = `<h1>${test.describe}</h1>\n`;
+    let resultHTML = `<html>\n<head>\n<title>Strapi Manual</title>\n</head>\n<body>\n`;
+
+    this.testResults.forEach((test) => {
+      resultHTML += `<h1>${test.describe}</h1>\n`;
 
       test.steps.forEach((step) => {
         resultHTML += `<h2>${step.title}</h2>\n`;
@@ -72,13 +74,10 @@ class CustomReporter {
           //   }
         });
       });
-
-      return resultHTML;
     });
 
-    return `<html>\n<head>\n<title>Cypress Custom Report</title>\n</head>\n<body>\n${formattedResults.join(
-      "\n"
-    )}</body>\n</html>`;
+    resultHTML += `</body>\n</html>`;
+    return resultHTML;
   }
 }
 
