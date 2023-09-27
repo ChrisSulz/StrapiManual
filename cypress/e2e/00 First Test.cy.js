@@ -1,6 +1,6 @@
 /// <reference types= "cypress" />
 
-describe("My Tests", () => {
+describe("00 First Test", () => {
   before(() => {
     cy.login("admin");
   });
