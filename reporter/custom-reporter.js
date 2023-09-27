@@ -32,7 +32,11 @@ class CustomReporter {
     runner.on("end", () => {
       this.testResults.push(this.currentTest);
       const htmlContent = this.generateHTML();
-      const outputPath = path.resolve(this.outputDir, "report.html");
+      const timestamp = new Date().toISOString().replace(/:/g, "-");
+      const outputPath = path.resolve(
+        this.outputDir,
+        `report-${timestamp}.html`
+      );
       fs.writeFileSync(outputPath, htmlContent);
     });
   }
@@ -62,7 +66,7 @@ class CustomReporter {
           const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
           if (screenshotMatch) {
             const screenshotName = screenshotMatch[0].match(/"([^"]+)"/)[1];
-            resultHTML += `<img src="../screenshots/strapi00.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
+                        resultHTML += `<img src="../screenshots/strapi00.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
           } else {
             resultHTML += `<p>${command}</p>\n`;
           }
