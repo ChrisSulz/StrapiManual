@@ -16,5 +16,6 @@ describe("00 First Test", () => {
       capture: "fullPage",
       overwrite: true,
     });
+    cy.log("Hier sehen Sie die Benutzeroberfläche von Strapi.");
   });
 });

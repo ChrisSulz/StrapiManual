@@ -63,9 +63,13 @@ class CustomReporter {
         resultHTML += `<h2>${step.title}</h2>\n`;
         step.commands.forEach((command) => {
           const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
+          const logMatch = command.match(/cy\.log[\s\S]*?;/);
           if (screenshotMatch) {
             const screenshotName = screenshotMatch[0].match(/"([^"]+)"/)[1];
             resultHTML += `<img src="../screenshots/${test.describe}.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
+          } else if (logMatch) {
+            const logPhrase = logMatch[0].match(/"([^"]+)"/)[1];
+            resultHTML += `<p>${logPhrase}</p>\n`;
           } else {
             resultHTML += `<p>${command}</p>\n`;
           }
