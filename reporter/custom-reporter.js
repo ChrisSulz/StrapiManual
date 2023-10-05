@@ -40,6 +40,7 @@ class CustomReporter {
     });
   }
 
+  // Filterung von Cypress-Befehlen
   extractCypressCommands(testBody) {
     const cypressCommands = [];
 
@@ -53,18 +54,21 @@ class CustomReporter {
     return cypressCommands;
   }
 
-  generateHTML() { // HTML-Generierung der Reports
-    let resultHTML = `<html>\n<head>\n<title>Strapi Manual</title>\n`; // (HTML) Titel
-    resultHTML += `<link rel="stylesheet" href="styles.css"></link>\n`; // (HTML) CSS Import
-    resultHTML += `</head>\n<body>\n`; // (HTML) Initialisierung body
+  // HTML-Generierung der Reports
+  generateHTML() {
+    let reportTitle = "Strapi Manual";
+    let CSSFile = "styles.css";
+    let resultHTML = `<html>\n<head>\n<title>${reportTitle}</title>\n`; // Titel
+    resultHTML += `<link rel="stylesheet" href="${CSSFile}"></link>\n`; // CSS Import
+    resultHTML += `</head>\n<body>\n`; // Initialisierung body
 
     this.testResults.forEach((test) => {
-      resultHTML += `<h1>${test.describe}</h1>\n`; // (HTML) cy.describe als Überschrift (h1)
+      resultHTML += `<h1>${test.describe}</h1>\n`; // cy.describe als Überschrift (h1)
 
       test.steps.forEach((step) => {
-        resultHTML += `<h2>${step.title}</h2>\n`; // (HTML) cy.it als Unterüberschrift (h2)
+        resultHTML += `<h2>${step.title}</h2>\n`; // cy.it als Unterüberschrift (h2)
         step.commands.forEach((command) => {
-          resultHTML += this.convertCommands(command, test);
+          resultHTML += this.convertCommands(command, test); // Konvertierung einzelner Cypress-Befehle
         });
       });
     });
@@ -73,25 +77,30 @@ class CustomReporter {
     return resultHTML;
   }
 
-  convertCommands(command, test) { // HTML-Generierung (Converter): Konvertierung der Cypress-Befehle
+  // HTML-Generierung (Converter): Konvertierung der Cypress-Befehle
+  convertCommands(command, test) {
     let html = "";
 
+    // Filtern jeweiliger Befehle
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const logMatch = command.match(/cy\.log[\s\S]*?;/);
 
     switch (true) {
+      // Passende Screenshots zu cy.screenshot (img)
       case !!screenshotMatch:
         const screenshotName = screenshotMatch[0].match(/"([^"]+)"/)[1];
-        html += `<img src="../screenshots/${test.describe}.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`; // (HTML) Passende Screenshots zu cy.screenshot (img)
+        html += `<img src="../screenshots/${test.describe}.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
         break;
 
+      // Inhalt von cy.log als Text (p)
       case !!logMatch:
         const logPhrase = logMatch[0].match(/"([^"]+)"/)[1];
-        html += `<p>${logPhrase}</p>\n`; // (HTML) Inhalt von cy.log als Text (p)
+        html += `<p>${logPhrase}</p>\n`;
         break;
 
+      // cy-Befehle als Text (p)
       default:
-        html += `<p>${command}</p>\n`; // (HTML) cy-Befehle als Text (p)
+        html += `<p>${command}</p>\n`;
         break;
     }
     return html;

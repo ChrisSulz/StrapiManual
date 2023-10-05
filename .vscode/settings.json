@@ -12,7 +12,8 @@
             },
             {
               "name": "Cypress",
-              "commands": ["npx cypress open"]
+              "commands": ["npx cypress open"],
+              "shouldRunCommands": false
             }
           ]
         }
