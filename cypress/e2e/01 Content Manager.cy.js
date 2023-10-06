@@ -1,5 +1,3 @@
-/// <reference types= "cypress" />
-
 describe("01 Content Manager", () => {
   beforeEach(() => {
     cy.login("admin");

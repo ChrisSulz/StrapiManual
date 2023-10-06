@@ -8,7 +8,7 @@
           "splitTerminals": [
             {
               "name": "Strapi",
-              "commands": ["cd ./public/my-project/", "npx strapi start"]
+              "commands": ["cd ./public/my-project/", "npx strapi run"]
             },
             {
               "name": "Cypress",
