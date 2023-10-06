@@ -63,13 +63,13 @@ class CustomReporter {
     resultHTML += `</head>\n<body>\n`; // Initialisierung body
 
     this.testResults.forEach((test) => {
+      // cy.describe als Überschrift (h1)
       const [descChapter, ...descTitleArray] = test.describe.split(" ");
       const descTitle = descTitleArray.join(" ");
       resultHTML += `<div class="h1Container">\n`;
       resultHTML += `<h1 id="chapter">${descChapter}</h1>\n`;
       resultHTML += `<h1 id="title">${descTitle}</h1>\n`;
       resultHTML += `</div>\n`;
-      // resultHTML += `<h1>${test.describe}</h1>\n`; // cy.describe als Überschrift (h1)
 
       test.steps.forEach((step) => {
         resultHTML += `<h2>${step.title}</h2>\n`; // cy.it als Unterüberschrift (h2)
