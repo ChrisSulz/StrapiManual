@@ -72,7 +72,15 @@ class CustomReporter {
       resultHTML += `</div>\n`;
 
       test.steps.forEach((step) => {
-        resultHTML += `<h2>${step.title}</h2>\n`; // cy.it als Unterüberschrift (h2)
+        // cy.it als Unterüberschrift (h2)
+        const [itChapter, ...itTitleArray] = step.title.split(" ");
+        const itTitle = itTitleArray.join(" ");
+        resultHTML += `<div class="h2Container">\n`;
+        resultHTML += `<h2 id="chapter">${itChapter}</h1>\n`;
+        resultHTML += `<h2 id="title">${itTitle}</h1>\n`;
+        resultHTML += `</div>\n`;
+        // resultHTML += `<h2>${step.title}</h2>\n`;
+
         step.commands.forEach((command) => {
           resultHTML += this.convertCommands(command, test); // Konvertierung einzelner Cypress-Befehle
         });

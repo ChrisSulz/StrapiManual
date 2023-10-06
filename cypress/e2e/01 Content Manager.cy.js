@@ -6,7 +6,7 @@ describe("01 Content Manager", () => {
     cy.visit("/admin");
   });
 
-  it("Open Content Manager", () => {
+  it("A Open Content Manager", () => {
     cy.contains("Content Manager").click();
     cy.wait(1000);
     cy.screenshot("contentmanager", {
@@ -16,7 +16,7 @@ describe("01 Content Manager", () => {
     cy.log("Here you can see the overview of Strapi.");
   });
 
-  it("Create a new entry", () => {
+  it("B Create a new entry", () => {
     cy.contains("Content Manager").click();
     cy.contains("Create new entry").click();
     cy.wait(1000);

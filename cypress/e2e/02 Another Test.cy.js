@@ -1,5 +1,5 @@
 describe("02 Another Test", () => {
-  it("spec example 01", () => {
+  it("A spec example 01", () => {
     cy.visit("https://example.cypress.io");
     cy.log("just a phrase sample.");
     cy.screenshot("example", {
