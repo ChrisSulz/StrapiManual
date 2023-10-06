@@ -25,12 +25,21 @@ a {
   text-decoration: none;
 }
 
+.h1Container {
+  display: flex;
+  align-items: center;
+}
+
 h1 {
   margin: 20px 0 0 0;
   padding: 1px 6px;
   border: solid;
   border-radius: 5px;
   box-shadow: var(--main-shadow);
+}
+
+h1#chapter {
+  margin-right: 7px;
 }
 
 h1 + h2 {
