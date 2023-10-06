@@ -83,6 +83,8 @@ class CustomReporter {
 
     // Filtern jeweiliger Befehle
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
+    const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
+    const clickMatch = command.match(/cy\.contains[\s\S]*?\.click[\s\S]*?;/);
     const logMatch = command.match(/cy\.log[\s\S]*?;/);
 
     switch (true) {
@@ -92,15 +94,21 @@ class CustomReporter {
         html += `<img src="../screenshots/${test.describe}.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
         break;
 
+      // Ziel von cy.visit als Text (p)
+      case !!visitMatch:
+        const visitTarget = visitMatch[0].match(/"([^"]+)"/)[1];
+        html += `<p>Visit the page <a href="${visitTarget}"><span class="visitTarget">${visitTarget}</span></a></p>\n`;
+        break;
+
+      case !!clickMatch:
+        const clickTarget = clickMatch[0].match(/"([^"]+)"/)[1];
+        html += `<p>Click on <span class="clickTarget">${clickTarget}</span></p>\n`;
+        break;
+
       // Inhalt von cy.log als Text (p)
       case !!logMatch:
         const logPhrase = logMatch[0].match(/"([^"]+)"/)[1];
         html += `<p>${logPhrase}</p>\n`;
-        break;
-
-      // cy-Befehle als Text (p)
-      default:
-        html += `<p>${command}</p>\n`;
         break;
     }
     return html;
