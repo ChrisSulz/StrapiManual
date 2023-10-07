@@ -114,6 +114,7 @@ class CustomReporter {
         html += `<p>Visit the page <a href="${visitTarget}"><span class="visitTarget">${visitTarget}</span></a></p>\n`;
         break;
 
+      // Ausgewählte Elemente als Text (p)
       case !!clickMatch:
         const clickTarget = clickMatch[0].match(/"([^"]+)"/)[1];
         html += `<p>Click on <span class="clickTarget">${clickTarget}</span></p>\n`;

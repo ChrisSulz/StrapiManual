@@ -1,29 +1,4 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-
+// Automatischer Login-Prozess
 Cypress.Commands.add("login", (user, password) => {
   cy.session([user, password], () => {
     // Login wird über Session-Cookie gecached
@@ -43,10 +18,12 @@ Cypress.Commands.add("login", (user, password) => {
   });
 });
 
+// Entfernen von Update-Popups
 Cypress.Commands.add("closeUpdate", () => {
   cy.get('button[aria-label="Close"]').click();
 });
 
+// Vollständiger Initialisierungsprozess
 Cypress.Commands.add("initialise", () => {
   cy.login("test@test.com", "Password123");
   cy.visit("https://skb-virtuell.de:8080/admin/");
