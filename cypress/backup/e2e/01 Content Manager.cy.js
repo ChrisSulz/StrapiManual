@@ -1,8 +1,7 @@
 describe("01 Content Manager", () => {
   beforeEach(() => {
-    // cy.login("test@test.com", "Password123");
-    // cy.visit("https://skb-virtuell.de:8080/admin/");
-    cy.initialise();
+    cy.login("admin");
+    cy.visit("/admin");
   });
 
   it("A Open Content Manager", () => {

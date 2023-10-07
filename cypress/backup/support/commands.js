@@ -24,10 +24,12 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add("login", (user, password) => {
+Cypress.Commands.add("login", (user) => {
+  let password = "PaWo1337";
+  user = user + "@email.com";
   cy.session([user, password], () => {
     // Login wird über Session-Cookie gecached
-    cy.visit("https://skb-virtuell.de:8080/admin/auth/login");
+    cy.visit("/admin/auth/login");
     cy.get('input[name="email"]') // Email eintragen
       .clear()
       .type(user);
@@ -41,14 +43,4 @@ Cypress.Commands.add("login", (user, password) => {
       .click();
     cy.url().should("not.include", "/login"); // Seite sollte nicht mehr Login beinhalten
   });
-});
-
-Cypress.Commands.add("closeUpdate", () => {
-  cy.get('button[aria-label="Close"]').click();
-});
-
-Cypress.Commands.add("initialise", () => {
-  cy.login("test@test.com", "Password123");
-  cy.visit("https://skb-virtuell.de:8080/admin/");
-  cy.closeUpdate();
 });

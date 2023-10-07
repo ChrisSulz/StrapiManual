@@ -1,0 +1,85 @@
+:root {
+  --main-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+img {
+  display: block;
+  margin: 5px auto;
+  max-width: 80%;
+  height: auto;
+  border: 1px solid #ccc;
+}
+
+a {
+  text-decoration: none;
+}
+
+.h1Container {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 0 0;
+}
+
+h1 {
+  padding: 1px 6px;
+  margin: 0;
+  border: solid;
+  border-radius: 5px;
+  box-shadow: var(--main-shadow);
+}
+
+h1#chapter {
+  margin-right: 7px;
+}
+
+.h2Container {
+  margin: 40px 0 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.h1Container + .h2Container {
+  margin: 20px 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+h2#chapter {
+  margin-right: 8px;
+  padding: 0px 5px;
+  border: solid;
+  border-radius: 5px;
+  box-shadow: var(--main-shadow);
+}
+
+p {
+  margin: 10px;
+}
+
+.visitTarget {
+  font-weight: bold;
+  color: rgb(0, 0, 130);
+}
+
+.clickTarget {
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  background-color: #3e51f7e4;
+  padding: 6px;
+  border-radius: 3px;
+  box-shadow: var(--main-shadow);
+}
