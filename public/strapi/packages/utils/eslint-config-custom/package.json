@@ -1,6 +1,0 @@
-{
-  "name": "eslint-config-custom",
-  "main": "index.js",
-  "version": "4.13.1",
-  "private": true
-}
