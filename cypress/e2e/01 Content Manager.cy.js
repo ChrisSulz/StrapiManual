@@ -4,6 +4,7 @@ describe("01 Content Manager", () => {
   });
 
   it("A Open Content Manager", () => {
+    cy.visit("https://skb-virtuell.de:8080/admin/");
     cy.contains("Content Manager").click();
     cy.wait(1000);
     cy.screenshot("contentmanager", {
@@ -14,7 +15,7 @@ describe("01 Content Manager", () => {
   });
 
   it("B Create a new entry", () => {
-    cy.contains("Content Manager").click();
+    cy.visit("https://skb-virtuell.de:8080/admin/content-manager/");
     cy.contains("Create new entry").click();
     cy.wait(1000);
     cy.screenshot("create-new-entry", {
