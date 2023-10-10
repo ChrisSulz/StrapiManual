@@ -7,12 +7,13 @@
         {
           "splitTerminals": [
             {
-              "name": "Strapi",
-              "commands": ["cd ./public/my-project/", "npx strapi run"]
+              "name": "Cy/open",
+              "commands": ["npx cypress open"],
+              "shouldRunCommands": true
             },
             {
-              "name": "Cypress",
-              "commands": ["npx cypress open"],
+              "name": "Cy/run",
+              "commands": ["npx cypress run"],
               "shouldRunCommands": false
             }
           ]

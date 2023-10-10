@@ -7,7 +7,7 @@ describe("01 Content Manager", () => {
     cy.contains("Content Manager").click();
     cy.wait(1000);
     cy.screenshot("contentmanager", {
-      capture: "fullPage",
+      capture: "viewport", // Alternative: "fullPage" (fehlerhaft replizierte Anzeige in nicht-scrollbaren Bereichen)
       overwrite: true,
     });
     cy.log("Here you can see the overview of Strapi.");
@@ -18,7 +18,7 @@ describe("01 Content Manager", () => {
     cy.contains("Create new entry").click();
     cy.wait(1000);
     cy.screenshot("create-new-entry", {
-      capture: "fullPage",
+      capture: "viewport",
       overwrite: true,
     });
   });
