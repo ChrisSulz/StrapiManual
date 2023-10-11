@@ -79,7 +79,6 @@ class CustomReporter {
         resultHTML += `<h2 id="chapter">${itChapter}</h1>\n`;
         resultHTML += `<h2 id="title">${itTitle}</h1>\n`;
         resultHTML += `</div>\n`;
-        // resultHTML += `<h2>${step.title}</h2>\n`;
 
         step.commands.forEach((command) => {
           resultHTML += this.convertCommands(command, test); // Konvertierung einzelner Cypress-Befehle
@@ -98,29 +97,43 @@ class CustomReporter {
     // Filtern jeweiliger Befehle
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
-    const clickMatch = command.match(/cy\.contains[\s\S]*?\.click[\s\S]*?;/);
+    const containsClickMatch = command.match(
+      /cy\.contains[\s\S]*?\.click[\s\S]*?;/
+    );
+    const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
     const logMatch = command.match(/cy\.log[\s\S]*?;/);
 
     switch (true) {
       // Passende Screenshots zu cy.screenshot (img)
+      // Bsp.: cy.screenshot("contentmanager", {capture: "viewport", overwrite: true,});
       case !!screenshotMatch:
         const screenshotName = screenshotMatch[0].match(/"([^"]+)"/)[1];
         html += `<img src="../screenshots/${test.describe}.cy.js/${screenshotName}.png" alt="${screenshotName}">\n`;
         break;
 
       // Ziel von cy.visit als Text (p)
+      // Bsp.: cy.visit("https://skb-virtuell.de:8080/admin/");
       case !!visitMatch:
         const visitTarget = visitMatch[0].match(/"([^"]+)"/)[1];
         html += `<p>Visit the page <a href="${visitTarget}"><span class="visitTarget">${visitTarget}</span></a></p>\n`;
         break;
 
-      // Ausgewählte Elemente als Text (p)
-      case !!clickMatch:
-        const clickTarget = clickMatch[0].match(/"([^"]+)"/)[1];
-        html += `<p>Click on <span class="clickTarget">${clickTarget}</span></p>\n`;
+      // Ausgewählte cy.contains()-Elemente zum Anklicken als Text (p)
+      // Bsp.: cy.contains("Content Manager").click();
+      case !!containsClickMatch:
+        const containsClickTarget = containsClickMatch[0].match(/"([^"]+)"/)[1];
+        html += `<p>Click on <span class="clickTarget">${containsClickTarget}</span></p>\n`;
+        break;
+
+      // Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)
+      // Bsp.: cy.get('li:contains("Content Manager")').click();
+      case !!getClickMatch:
+        const getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
+        html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
         break;
 
       // Inhalt von cy.log als Text (p)
+      // Bsp.: cy.log("Here you can see the overview of Strapi.");
       case !!logMatch:
         const logPhrase = logMatch[0].match(/"([^"]+)"/)[1];
         html += `<p>${logPhrase}</p>\n`;
