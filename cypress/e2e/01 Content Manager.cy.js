@@ -1,10 +1,10 @@
 describe("01 Content Manager", () => {
   beforeEach(() => {
-    cy.initialise();
+    cy.initialise("editor");
   });
 
   it("A Open Content Manager", () => {
-    cy.visit("https://skb-virtuell.de:8080/admin/");
+    cy.visit("https://test.skb-virtuell.de:8080/admin/");
     cy.contains("Content Manager").click();
     cy.wait(1000);
     cy.screenshot("contentmanager", {

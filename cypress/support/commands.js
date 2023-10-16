@@ -1,11 +1,23 @@
 // Automatischer Login-Prozess
-Cypress.Commands.add("login", (user, password) => {
+Cypress.Commands.add("login", (user) => {
+  let password;
+  switch (user) {
+    case "admin":
+      password = "QKbjoKly2x";
+      break;
+    case "editor":
+      password = "s5JBkoNzij";
+      break;
+    case "author":
+      password = "2f17xncDtX";
+      break;
+  }
   cy.session([user, password], () => {
     // Login wird über Session-Cookie gecached
-    cy.visit("https://skb-virtuell.de:8080/admin/auth/login");
+    cy.visit("https://test.skb-virtuell.de:8080/admin/auth/login");
     cy.get('input[name="email"]') // Email eintragen
       .clear()
-      .type(user);
+      .type(user + "@email.com");
     cy.get('input[name="password"]') // Passwort eintragen
       .clear()
       .type(password);
@@ -24,8 +36,8 @@ Cypress.Commands.add("closeUpdate", () => {
 });
 
 // Vollständiger Initialisierungsprozess
-Cypress.Commands.add("initialise", () => {
-  cy.login("test@test.com", "Password123");
-  cy.visit("https://skb-virtuell.de:8080/admin/");
+Cypress.Commands.add("initialise", (user) => {
+  cy.login(user);
+  cy.visit("https://test.skb-virtuell.de:8080/admin/");
   cy.closeUpdate();
 });
