@@ -131,21 +131,28 @@ class CustomReporter {
           // Bsp.: cy.get('li:contains("Content Manager")').click();
           case !!getClickMatch:
             let getClickTarget;
-            // if case: cy.get(...).contains("...").click();
-            // else if case: cy.get(...).first().click();
-            // else case: cy.get(... "...").click();
-            if (getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/)) {
-              getClickTarget = getClickMatch[0].match(
-                /[\s\S]*?\.contains\("([^"]+)"/
-              )[1];
-            } else if (getClickMatch[0].match(/[\s\S]*?\.first/)) {
-              html += `<p>Click on any entry</p>\n`;
-              break;
-            } else {
-              getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
+
+            switch (true) {
+              // cy.get(...).contains("...").click();
+              case !!getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/):
+                getClickTarget = getClickMatch[0].match(
+                  /[\s\S]*?\.contains\("([^"]+)"/
+                )[1];
+                break;
+              // cy.get(...).first().click();
+              case !!getClickMatch[0].match(/[\s\S]*?\.first/):
+                html += `<p>Click on any entry</p>\n`;
+                break;
+              // cy.get(... "...").click();
+              default:
+                getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
+                break;
             }
-            html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
+
+            if (getClickTarget)
+              html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
             break;
+
           // Ausgewählte cy.get()-Elemente per .contains() (p)
           // Bsp.: cy.get("h1").contains("Aussteller");
           case !!getContainsMatch:
