@@ -15,10 +15,19 @@ describe("01 Content Manager", () => {
     });
 
     cy.get("h1").contains("Aussteller");
-    cy.get("main table tbody tr").first().click();
+    cy.get("main table tbody tr span").contains("Draft").first().click();
 
     cy.wait(1000);
     cy.screenshot("contentmanager-aussteller-entry-draft", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
+    // (!) force: true ist notwendig, da das <span>-Element vom <button>-Element überlappt wird
+    cy.get("button span").contains("Publish").click({ force: true });
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-entry-published", {
       capture: "viewport",
       overwrite: true,
     });
