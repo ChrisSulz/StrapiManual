@@ -13,5 +13,6 @@ describe("01 Content Manager", () => {
       overwrite: true,
     });
     cy.get("h1").contains("Aussteller");
+    cy.get("main table tbody tr").first().click();
   });
 });

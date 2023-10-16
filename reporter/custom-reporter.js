@@ -145,22 +145,6 @@ class CustomReporter {
         }
         break;
 
-      // // Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)
-      // // Bsp.: cy.get('li:contains("Content Manager")').click();
-      // case !!getClickMatch:
-      //   let getClickTarget;
-      //   // if case: cy.get(...).contains("...").click();
-      //   // else case: cy.get(... "...").click();
-      //   if (getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/)) {
-      //     getClickTarget = getClickMatch[0].match(
-      //       /[\s\S]*?\.contains\("([^"]+)"/
-      //     )[1];
-      //   } else {
-      //     getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
-      //   }
-      //   html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
-      //   break;
-
       // Ausgewählte cy.contains()-Elemente zum Anklicken als Text (p)
       // Bsp.: cy.contains("Content Manager").click();
       case !!containsClickMatch:
