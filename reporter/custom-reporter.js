@@ -98,7 +98,6 @@ class CustomReporter {
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
     const getMatch = command.match(/cy\.get[\s\S]*?;/);
-    const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
     const containsClickMatch = command.match(
       /cy\.contains[\s\S]*?\.click[\s\S]*?;/
     );
@@ -121,27 +120,40 @@ class CustomReporter {
 
       // Befehlsfolgen von cy.get()
       case !!getMatch:
-        // if case: Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)
-        // if case: Bsp.: cy.get('li:contains("Content Manager")').click();
-        // else case: Ausgewählte cy.get()-Elemente per .contains() (p)
-        // else case: Bsp.: cy.get("h1").contains("Aussteller");
-        if (!!getClickMatch) {
-          let getClickTarget;
-          // if case: cy.get(...).contains("...").click();
-          // else case: cy.get(... "...").click();
-          if (getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/)) {
-            getClickTarget = getClickMatch[0].match(
+        // Filtern jeweiliger cy.get()-Befehle
+        const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
+        const getContainsMatch = command.match(
+          /cy\.get[\s\S]*?\.contains\("([^"]+)"\);/
+        );
+
+        switch (true) {
+          // Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)
+          // Bsp.: cy.get('li:contains("Content Manager")').click();
+          case !!getClickMatch:
+            let getClickTarget;
+            // if case: cy.get(...).contains("...").click();
+            // else if case: cy.get(...).first().click();
+            // else case: cy.get(... "...").click();
+            if (getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/)) {
+              getClickTarget = getClickMatch[0].match(
+                /[\s\S]*?\.contains\("([^"]+)"/
+              )[1];
+            } else if (getClickMatch[0].match(/[\s\S]*?\.first/)) {
+              html += `<p>Click on any entry</p>\n`;
+              break;
+            } else {
+              getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
+            }
+            html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
+            break;
+          // Ausgewählte cy.get()-Elemente per .contains() (p)
+          // Bsp.: cy.get("h1").contains("Aussteller");
+          case !!getContainsMatch:
+            const getTarget = getMatch[0].match(
               /[\s\S]*?\.contains\("([^"]+)"/
             )[1];
-          } else {
-            getClickTarget = getClickMatch[0].match(/"([^"]+)"/)[1];
-          }
-          html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
-        } else {
-          const getTarget = getMatch[0].match(
-            /[\s\S]*?\.contains\("([^"]+)"/
-          )[1];
-          html += `<p>You are now in section <span class="getTarget">${getTarget}</span></p>\n`;
+            html += `<p>You are now in section <span class="getTarget">${getTarget}</span></p>\n`;
+            break;
         }
         break;
 

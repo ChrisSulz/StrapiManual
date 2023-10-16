@@ -7,12 +7,20 @@ describe("01 Content Manager", () => {
     cy.visit("https://test.skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Aussteller", { matchCase: false }).click();
+
     cy.wait(1000);
-    cy.screenshot("contentmanager-aussteller", {
+    cy.screenshot("contentmanager-aussteller-01", {
       capture: "viewport",
       overwrite: true,
     });
+
     cy.get("h1").contains("Aussteller");
     cy.get("main table tbody tr").first().click();
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-entry-draft", {
+      capture: "viewport",
+      overwrite: true,
+    });
   });
 });
