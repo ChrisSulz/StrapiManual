@@ -14,7 +14,7 @@ Cypress.Commands.add("login", (user) => {
   }
   cy.session([user, password], () => {
     // Login wird über Session-Cookie gecached
-    cy.visit("https://test.skb-virtuell.de:8080/admin/auth/login");
+    cy.visit("/");
     cy.get('input[name="email"]') // Email eintragen
       .clear()
       .type(user + "@email.com");
@@ -38,6 +38,6 @@ Cypress.Commands.add("closeUpdate", () => {
 // Vollständiger Initialisierungsprozess
 Cypress.Commands.add("initialise", (user) => {
   cy.login(user);
-  cy.visit("https://test.skb-virtuell.de:8080/admin/");
+  cy.visit("/");
   cy.closeUpdate();
 });

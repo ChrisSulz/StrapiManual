@@ -3,7 +3,7 @@ describe("01 Content Manager", () => {
     cy.initialise("editor");
   });
 
-  it("A Publishing an exhibitor", () => {
+  it("A Publishing and Unpublishing exhibitors", () => {
     cy.visit("https://test.skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Aussteller", { matchCase: false }).click();
@@ -28,6 +28,24 @@ describe("01 Content Manager", () => {
 
     cy.wait(1000);
     cy.screenshot("contentmanager-aussteller-entry-published", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
+    // (!) force: true ist notwendig, da das <span>-Element vom <button>-Element überlappt wird
+    cy.get("button span").contains("Unpublish").click({ force: true });
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-entry-confirmation-unpublish", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
+    // (!) force: true ist notwendig, da das <span>-Element vom <button>-Element überlappt wird
+    cy.get("button span").contains("Yes, confirm").click({ force: true });
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-entry-unpublished", {
       capture: "viewport",
       overwrite: true,
     });
