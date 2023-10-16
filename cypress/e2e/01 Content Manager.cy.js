@@ -3,24 +3,15 @@ describe("01 Content Manager", () => {
     cy.initialise("editor");
   });
 
-  it("A Open Content Manager", () => {
+  it("A Publishing an exhibitor", () => {
     cy.visit("https://test.skb-virtuell.de:8080/admin/");
-    cy.contains("Content Manager").click();
-    cy.wait(1000);
-    cy.screenshot("contentmanager", {
-      capture: "viewport", // Alternative: "fullPage" (fehlerhaft replizierte Anzeige in nicht-scrollbaren Bereichen)
-      overwrite: true,
-    });
-    cy.log("Here you can see the overview of Strapi.");
-  });
-
-  it("B Create a new entry", () => {
     cy.get('li:contains("Content Manager")').click();
-    cy.contains("Create new entry").click();
+    cy.get("li span").contains("Aussteller", { matchCase: false }).click();
     cy.wait(1000);
-    cy.screenshot("create-new-entry", {
+    cy.screenshot("contentmanager-aussteller", {
       capture: "viewport",
       overwrite: true,
     });
+    cy.get("h1").contains("Aussteller");
   });
 });

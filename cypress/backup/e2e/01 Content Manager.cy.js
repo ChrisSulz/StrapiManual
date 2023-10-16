@@ -5,21 +5,22 @@ describe("01 Content Manager", () => {
   });
 
   it("A Open Content Manager", () => {
-    cy.contains("Content Manager").click();
+    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.get('li:contains("Content Manager")').click();
     cy.wait(1000);
     cy.screenshot("contentmanager", {
-      capture: "fullPage",
+      capture: "viewport", // Alternative: "fullPage" (fehlerhaft replizierte Anzeige in nicht-scrollbaren Bereichen)
       overwrite: true,
     });
     cy.log("Here you can see the overview of Strapi.");
   });
 
   it("B Create a new entry", () => {
-    cy.contains("Content Manager").click();
+    cy.get('li:contains("Content Manager")').click(); // Alternativ: cy.contains("Content Manager").click();
     cy.contains("Create new entry").click();
     cy.wait(1000);
     cy.screenshot("create-new-entry", {
-      capture: "fullPage",
+      capture: "viewport",
       overwrite: true,
     });
   });

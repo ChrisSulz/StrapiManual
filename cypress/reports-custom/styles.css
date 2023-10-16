@@ -8,6 +8,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0;
+  padding-bottom: 15px;
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   text-align: center;
@@ -15,7 +16,7 @@ body {
 
 img {
   display: block;
-  margin: 5px auto;
+  margin: 10px auto;
   max-width: 80%;
   height: auto;
   border: 1px solid #ccc;
@@ -81,5 +82,14 @@ p {
   background-color: #3e51f7e4;
   padding: 6px;
   border-radius: 3px;
+  box-shadow: var(--main-shadow);
+}
+
+.getTarget {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 6px;
+  border-radius: 3px;
+  border: solid;
   box-shadow: var(--main-shadow);
 }
