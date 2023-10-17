@@ -135,7 +135,10 @@ class CustomReporter {
             switch (true) {
               // cy.get(...).first().click();
               case !!getClickMatch[0].match(/[\s\S]*?\.first/):
-                html += `<p>Click on any entry</p>\n`;
+                let getFirstClickTarget = getClickMatch[0].match(
+                  /[\s\S]*?\.contains\("([^"]+)"/
+                )[1];
+                html += `<p>Click on any <span class="firstClickTarget">${getFirstClickTarget}</span> entry</p>\n`;
                 break;
               // cy.get(...).contains("...").click();
               case !!getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/):

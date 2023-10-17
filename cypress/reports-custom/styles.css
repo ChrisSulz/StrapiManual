@@ -1,5 +1,7 @@
 :root {
   --main-shadow: 1px 2px 3px rgba(0, 0, 0, 0.3);
+  --button-color: #3e51f7e4;
+  --link-color: #000082;
 }
 
 body {
@@ -72,22 +74,31 @@ p {
 
 .visitTarget {
   font-weight: bold;
-  color: rgb(0, 0, 130);
+  color: var(--link-color);
 }
 
 .clickTarget {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.9rem;
   color: white;
-  background-color: #3e51f7e4;
+  background-color: var(--button-color);
   padding: 6px;
   border-radius: 3px;
   box-shadow: var(--main-shadow);
 }
 
+.firstClickTarget {
+  font-weight: bold;
+  font-size: 0.9rem;
+  padding: 4px 5px;
+  border-radius: 3px;
+  color: white;
+  background-color: rgb(98, 98, 98);
+}
+
 .getTarget {
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.9rem;
   padding: 6px;
   border-radius: 3px;
   border: solid;

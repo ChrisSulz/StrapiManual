@@ -3,7 +3,7 @@ describe("01 Content Manager", () => {
     cy.initialise("editor");
   });
 
-  it("A Publishing and Unpublishing exhibitors", () => {
+  it("A Publishing an exhibitor", () => {
     cy.visit("https://test.skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Aussteller", { matchCase: false }).click();
@@ -27,7 +27,28 @@ describe("01 Content Manager", () => {
     cy.get("button span").contains("Publish").click({ force: true });
 
     cy.wait(1000);
-    cy.screenshot("contentmanager-aussteller-entry-published", {
+    cy.screenshot("contentmanager-aussteller-entry-published-01", {
+      capture: "viewport",
+      overwrite: true,
+    });
+  });
+
+  it("B Unpublishing an exhibitor", () => {
+    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.get('li:contains("Content Manager")').click();
+    cy.get("li span").contains("Aussteller", { matchCase: false }).click();
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-02", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
+    cy.get("h1").contains("Aussteller");
+    cy.get("main table tbody tr span").contains("Published").first().click();
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-aussteller-entry-published-02", {
       capture: "viewport",
       overwrite: true,
     });
