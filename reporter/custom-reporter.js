@@ -56,12 +56,14 @@ class CustomReporter {
 
   // HTML-Generierung der Reports
   generateHTML() {
+    // HEAD
     let reportTitle = "Strapi Manual";
     let CSSFile = "styles.css";
     let resultHTML = `<html>\n<head>\n<title>${reportTitle}</title>\n`; // Titel
     resultHTML += `<link rel="stylesheet" href="${CSSFile}"></link>\n`; // CSS Import
     resultHTML += `</head>\n<body>\n`; // Initialisierung body
 
+    // BODY
     this.testResults.forEach((test) => {
       // cy.describe als Überschrift (h1)
       const [descChapter, ...descTitleArray] = test.describe.split(" ");
