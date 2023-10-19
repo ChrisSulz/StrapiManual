@@ -28,13 +28,82 @@ div + div {
 img {
   display: block;
   margin: 10px auto;
-  max-width: 80%;
+  width: min(80%, 1000px);
   height: auto;
   border: 1px solid #ccc;
 }
 
 a {
   text-decoration: none;
+}
+
+p {
+  margin: 10px;
+}
+
+h1 {
+  margin: 20px;
+}
+
+hr {
+  width: 80%;
+  margin-block: 20px;
+}
+
+.header {
+  width: min(60%, 800px);
+}
+
+.header h1,
+.header h3 {
+  font-size: 1rem;
+}
+
+.header h2 {
+  font-size: 1.9rem;
+  text-align: center;
+}
+
+#toc-headline {
+  padding: 1px 6px;
+  margin: 0;
+  border: solid;
+  border-radius: 5px;
+  box-shadow: var(--main-shadow);
+}
+
+.toc ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.toc li {
+  padding: 3px 0;
+}
+
+.toc li a {
+  color: #000000;
+}
+
+.toc li a #chapter {
+  padding: 0px 2px;
+  border: solid;
+  border-radius: 3px;
+  border-width: 1px;
+  border-color: rgb(185, 185, 185);
+}
+
+.toc-list > li a {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.sub-toc-list li {
+  font-size: 1rem;
+}
+
+.sub-toc-list + li {
+  padding-top: 20px;
 }
 
 .h1Container {
@@ -45,17 +114,13 @@ a {
   margin: 20px 0 0 0;
 }
 
-h1#title,
-h1#chapter {
+h1 #title,
+h1 #chapter {
   padding: 1px 6px;
   margin: 0;
   border: solid;
   border-radius: 5px;
   box-shadow: var(--main-shadow);
-}
-
-h1#chapter {
-  margin-right: 7px;
 }
 
 .h2Container {
@@ -74,16 +139,12 @@ h2 {
   margin: 0;
 }
 
-h2#chapter {
+h2 #chapter {
   margin-right: 8px;
   padding: 0px 5px;
   border: solid;
   border-radius: 5px;
   box-shadow: var(--main-shadow);
-}
-
-p {
-  margin: 10px;
 }
 
 .visitTarget {
@@ -117,4 +178,8 @@ p {
   border-radius: 3px;
   border: solid;
   box-shadow: var(--main-shadow);
+}
+
+.footer p {
+  margin: 0;
 }

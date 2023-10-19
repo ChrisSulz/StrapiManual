@@ -69,8 +69,7 @@ class CustomReporter {
       const [descChapter, ...descTitleArray] = test.describe.split(" ");
       const descTitle = descTitleArray.join(" ");
       resultHTML += `<div class="h1Container">\n`;
-      resultHTML += `<h1 id="chapter">${descChapter}</h1>\n`;
-      resultHTML += `<h1 id="title">${descTitle}</h1>\n`;
+      resultHTML += `<h1><span id="chapter">${descChapter}</span> <span id="title">${descTitle}</span></h1>\n`;
       resultHTML += `</div>\n`;
 
       test.steps.forEach((step) => {
@@ -78,8 +77,7 @@ class CustomReporter {
         const [itChapter, ...itTitleArray] = step.title.split(" ");
         const itTitle = itTitleArray.join(" ");
         resultHTML += `<div class="h2Container">\n`;
-        resultHTML += `<h2 id="chapter">${itChapter}</h1>\n`;
-        resultHTML += `<h2 id="title">${itTitle}</h1>\n`;
+        resultHTML += `<h2><span id="chapter">${itChapter}</span> <span id="title">${itTitle}</span></h2>\n`;
         resultHTML += `</div>\n`;
 
         step.commands.forEach((command) => {
