@@ -162,7 +162,8 @@ h2 #chapter {
   box-shadow: var(--main-shadow);
 }
 
-.firstClickTarget {
+.firstClickTarget,
+.InputTarget {
   font-weight: bold;
   font-size: 0.9rem;
   padding: 4px 5px;

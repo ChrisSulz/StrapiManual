@@ -32,7 +32,11 @@ Cypress.Commands.add("login", (user) => {
 
 // Entfernen von Update-Popups
 Cypress.Commands.add("closeUpdate", () => {
-  cy.get('button[aria-label="Close"]').click();
+  cy.get('button[aria-label="Close"]')
+    .should("exist")
+    .then((element) => {
+      cy.wrap(element).click();
+    });
 });
 
 // Vollständiger Initialisierungsprozess

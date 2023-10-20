@@ -121,21 +121,49 @@ class CustomReporter {
       // Befehlsfolgen von cy.get()
       case !!getMatch:
         // Filtern jeweiliger cy.get()-Befehle
+        const getCodeMirrorMatch = command.match(
+          /cy\.get\("\.CodeMirror-scroll"\)[\s\S]*?;/
+        );
         const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
         const getContainsMatch = command.match(
           /cy\.get[\s\S]*?\.contains\("([^"]+)"\);/
         );
 
         switch (true) {
+          // Spezialfall: cy.get(".CodeMirror-scroll").type("..."); => Textfeld
+          case !!getCodeMirrorMatch:
+            html += `<p>Write something into the <span class="InputTarget">text field</span></p>\n`;
+            break;
+
           // Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)
           // Bsp.: cy.get('li:contains("Content Manager")').click();
           case !!getClickMatch:
             let getClickTarget;
 
             switch (true) {
+              // Spezialfall: cy.get("...").contains("Delete item line ...").click();
+              case !!getClickMatch[0].match(
+                /[\s\S]*?\.contains\("Delete item line[\s\S]*?/
+              ):
+                getClickTarget = "Delete";
+                break;
+              // cy.get(input#...).click();
+              case !!getClickMatch[0].match(/[\s\S]*?input/):
+                const getInputTarget = getClickMatch[0].match(
+                  /[\s\S]*?.get\("input#([^"]+)"/
+                )[1];
+                html += `<p>Input a <span class="InputTarget">${getInputTarget}</span> entry</p>\n`;
+                break;
+              // cy.get(button#...).click();
+              case !!getClickMatch[0].match(/[\s\S]*?button#/):
+                const getButtonInputTarget = getClickMatch[0].match(
+                  /[\s\S]*?.get\("button#([^"]+)"/
+                )[1];
+                html += `<p>Choose a <span class="InputTarget">${getButtonInputTarget}</span> entry</p>\n`;
+                break;
               // cy.get(...).first().click();
               case !!getClickMatch[0].match(/[\s\S]*?\.first/):
-                let getFirstClickTarget = getClickMatch[0].match(
+                const getFirstClickTarget = getClickMatch[0].match(
                   /[\s\S]*?\.contains\("([^"]+)"/
                 )[1];
                 html += `<p>Click on any <span class="firstClickTarget">${getFirstClickTarget}</span> entry</p>\n`;
