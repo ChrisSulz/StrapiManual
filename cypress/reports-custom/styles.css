@@ -64,6 +64,10 @@ hr {
   text-align: center;
 }
 
+.logo {
+  max-width: 80px;
+}
+
 #toc-headline {
   padding: 1px 6px;
   margin: 0;
