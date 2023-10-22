@@ -1,5 +1,24 @@
 const placeholder = document.querySelector(".main-content");
 const tocContainer = document.querySelector(".toc");
+const scrollToTopButton = document.getElementById("scroll-to-top-button");
+
+// Button um nach oben zu scrollen
+window.addEventListener("scroll", function () {
+  if (window.scrollY > 100) {
+    // Ab 100px nach unten wird Button angezeigt
+    scrollToTopButton.style.display = "block";
+  } else {
+    scrollToTopButton.style.display = "none";
+  }
+});
+
+// Event-Listener um Scrollen nach oben bei Button-Klick auszulösen
+scrollToTopButton.addEventListener("click", function () {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth",
+  });
+});
 
 // Funktion zum Laden und Einfügen des HTML-Inhalts
 async function loadAndInsertHtml(fileName) {
