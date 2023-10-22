@@ -1,23 +1,15 @@
+const credentials = require("./credentials.json");
+
 // Automatischer Login-Prozess
-Cypress.Commands.add("login", (user) => {
-  let password;
-  switch (user) {
-    case "admin":
-      password = "QKbjoKly2x";
-      break;
-    case "editor":
-      password = "s5JBkoNzij";
-      break;
-    case "author":
-      password = "2f17xncDtX";
-      break;
-  }
+Cypress.Commands.add("login", () => {
+  const user = credentials.user;
+  const password = credentials.password;
   cy.session([user, password], () => {
     // Login wird über Session-Cookie gecached
     cy.visit("/");
     cy.get('input[name="email"]') // Email eintragen
       .clear()
-      .type(user + "@email.com");
+      .type(user);
     cy.get('input[name="password"]') // Passwort eintragen
       .clear()
       .type(password);
@@ -40,8 +32,8 @@ Cypress.Commands.add("closeUpdate", () => {
 });
 
 // Vollständiger Initialisierungsprozess
-Cypress.Commands.add("initialise", (user) => {
-  cy.login(user);
+Cypress.Commands.add("initialise", () => {
+  cy.login();
   cy.visit("/");
   cy.closeUpdate();
 });

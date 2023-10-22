@@ -1,6 +1,6 @@
 describe("02 Expert Lectures", () => {
   beforeEach(() => {
-    cy.initialise("editor");
+    cy.initialise();
   });
 
   it("A Create a new expert lecture", () => {

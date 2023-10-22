@@ -1,6 +1,6 @@
 describe("01 Content Manager", () => {
   beforeEach(() => {
-    cy.initialise("editor");
+    cy.initialise();
   });
 
   it("A Unpublishing an exhibitor", () => {

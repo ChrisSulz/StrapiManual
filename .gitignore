@@ -1,1 +1,4 @@
 node_modules/
+
+# Cypress configurations
+credentials.json

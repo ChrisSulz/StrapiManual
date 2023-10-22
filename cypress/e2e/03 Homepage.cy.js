@@ -1,6 +1,6 @@
 describe("03 Homepage", () => {
   beforeEach(() => {
-    cy.initialise("editor");
+    cy.initialise();
   });
 
   it("A Change text on landing page", () => {
