@@ -15,5 +15,15 @@ describe("03 Homepage", () => {
     });
 
     cy.get("h1").contains("Homepage");
+    cy.get("input#ueberschrift").click();
+    cy.get("input#zeitraum").click();
+    cy.get(".CodeMirror-scroll");
+    cy.get("button span").contains("Save").click({ force: true });
+
+    cy.wait(1000);
+    cy.screenshot("homepage-saved", {
+      capture: "viewport",
+      overwrite: true,
+    });
   });
 });

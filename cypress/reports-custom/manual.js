@@ -2,24 +2,23 @@ const placeholder = document.querySelector(".main-content");
 const tocContainer = document.querySelector(".toc");
 
 // Funktion zum Laden und Einfügen des HTML-Inhalts
-function loadAndInsertHtml(fileName) {
-  if (!fileName.endsWith("manual.html")) {
-    fetch(fileName)
-      .then((response) => response.text())
-      .then((htmlContent) => {
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(htmlContent, "text/html");
-        const bodyContent = doc.querySelector("body").innerHTML;
-        const div = document.createElement("div");
-        div.innerHTML = bodyContent;
-        placeholder.appendChild(div);
+async function loadAndInsertHtml(fileName) {
+  try {
+    if (!fileName.endsWith("manual.html")) {
+      const response = await fetch(fileName);
+      const htmlContent = await response.text();
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, "text/html");
+      const bodyContent = doc.querySelector("body").innerHTML;
+      const div = document.createElement("div");
+      div.innerHTML = bodyContent;
+      placeholder.appendChild(div);
 
-        // Erstelle das Inhaltsverzeichnis
-        createTableOfContents();
-      })
-      .catch((error) => {
-        console.error(`Fehler beim Laden von ${fileName}: ${error}`);
-      });
+      // Erstelle das Inhaltsverzeichnis
+      createTableOfContents();
+    }
+  } catch (error) {
+    console.error(`Fehler beim Laden von ${fileName}: ${error}`);
   }
 }
 
@@ -38,8 +37,6 @@ function createTableOfContents() {
     const [chapter, ...titleArray] = heading.textContent.split(" ");
     const title = titleArray.join(" ");
     anchor.innerHTML = `<span id="chapter">${chapter}</span> <span id="title">${title}</span>\n`;
-
-    // anchor.textContent = heading.textContent;
 
     // Fügt eine ID zu den Überschriften hinzu, um das Scrollen zu ermöglichen
     const headingId = `heading-${index}`;
@@ -67,18 +64,24 @@ function createTableOfContents() {
 }
 
 // Suche und lade den HTML-Inhalt für alle .html-Dateien im aktuellen Ordner
-fetch(".")
-  .then((response) => response.text())
-  .then((htmlContent) => {
+(async () => {
+  try {
+    const response = await fetch(".");
+    const htmlContent = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlContent, "text/html");
     const links = doc.querySelectorAll('a[href$=".html"]');
 
-    links.forEach((link) => {
-      const fileName = link.getAttribute("href");
-      loadAndInsertHtml(fileName);
-    });
-  })
-  .catch((error) => {
+    // Extrahiere die Dateinamen und sortiere sie in der gewünschten Reihenfolge
+    const fileNames = Array.from(links, (link) => link.getAttribute("href"));
+    const sortedFileNames = fileNames.sort((a, b) =>
+      a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+    );
+
+    for (const fileName of sortedFileNames) {
+      await loadAndInsertHtml(fileName);
+    }
+  } catch (error) {
     console.error(`Fehler beim Abrufen des Ordnerinhalts: ${error}`);
-  });
+  }
+})();
