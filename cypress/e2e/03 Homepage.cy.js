@@ -3,7 +3,7 @@ describe("03 Homepage", () => {
     cy.initialise("editor");
   });
 
-  it("A Create a new expert lecture", () => {
+  it("A Change text on landing page", () => {
     cy.visit("https://test.skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Homepage", { matchCase: false }).click();
