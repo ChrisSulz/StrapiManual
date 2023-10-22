@@ -1,0 +1,19 @@
+describe("03 Homepage", () => {
+  beforeEach(() => {
+    cy.initialise("editor");
+  });
+
+  it("A Create a new expert lecture", () => {
+    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.get('li:contains("Content Manager")').click();
+    cy.get("li span").contains("Homepage", { matchCase: false }).click();
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-homepage", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
+    cy.get("h1").contains("Homepage");
+  });
+});
