@@ -24,6 +24,7 @@ Cypress.Commands.add("login", () => {
 
 // Entfernen von Update-Popups
 Cypress.Commands.add("closeUpdate", () => {
+  cy.wait(100);
   cy.get('button[aria-label="Close"]')
     .should("exist")
     .then((element) => {

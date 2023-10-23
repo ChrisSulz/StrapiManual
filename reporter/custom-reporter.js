@@ -97,6 +97,7 @@ class CustomReporter {
     // Filtern jeweiliger Befehle
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
+    const scrollMatch = command.match(/cy\.scrollTo[\s\S]*?;/);
     const getMatch = command.match(/cy\.get[\s\S]*?;/);
     const containsClickMatch = command.match(
       /cy\.contains[\s\S]*?\.click[\s\S]*?;/
@@ -116,6 +117,12 @@ class CustomReporter {
       case !!visitMatch:
         const visitTarget = visitMatch[0].match(/"([^"]+)"/)[1];
         html += `<p>Visit the page <a href="${visitTarget}"><span class="visitTarget">${visitTarget}</span></a></p>\n`;
+        break;
+
+      // Scroll in gewisse Richtung
+      // Bsp.: cy.scrollTo("bottom");
+      case !!scrollMatch:
+        html += `<p>Scroll down</p>\n`;
         break;
 
       // Befehlsfolgen von cy.get()
