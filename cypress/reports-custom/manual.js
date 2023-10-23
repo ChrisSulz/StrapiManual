@@ -1,6 +1,7 @@
 const placeholder = document.querySelector(".main-content");
 const tocContainer = document.querySelector(".toc");
 const scrollToTopButton = document.getElementById("scroll-to-top-button");
+const footerContainer = document.querySelector(".footer"); // Finde das Footer-Element
 
 // Button um nach oben zu scrollen
 window.addEventListener("scroll", function () {
@@ -39,6 +40,29 @@ async function loadAndInsertHtml(fileName) {
   } catch (error) {
     console.error(`Fehler beim Laden von ${fileName}: ${error}`);
   }
+}
+
+// Funktion zum Laden und Einfügen des Footer-Inhalts
+function loadAndInsertFooter() {
+  fetch("footer.txt")
+    .then((response) => response.text())
+    .then((footerContent) => {
+      const p = document.createElement("p");
+      const lines = footerContent.split("\n"); // Teilt den Inhalt in Zeilen
+
+      // Fügt jede Zeile als <p> mit <br> ein
+      lines.forEach((line, index) => {
+        p.innerHTML += line;
+        if (index < lines.length - 1) {
+          p.innerHTML += "<br>"; // Fügt <br> nach jeder Zeile (außer der letzten) ein
+        }
+      });
+
+      footerContainer.appendChild(p); // Fügt den Footer-Inhalt in das .footer-Element ein
+    })
+    .catch((error) => {
+      console.error(`Fehler beim Laden des Footers: ${error}`);
+    });
 }
 
 // Erstellt das Inhaltsverzeichnis
@@ -82,7 +106,7 @@ function createTableOfContents() {
   tocContainer.appendChild(tocList);
 }
 
-// Suche und lade den HTML-Inhalt für alle .html-Dateien im aktuellen Ordner
+// Suche und lade den HTML-Inhalt für alle .html-Dateien, sowie footer.txt im aktuellen Ordner
 (async () => {
   try {
     const response = await fetch(".");
@@ -100,6 +124,9 @@ function createTableOfContents() {
     for (const fileName of sortedFileNames) {
       await loadAndInsertHtml(fileName);
     }
+
+    // Lade und füge den Footer-Inhalt ein, nachdem der HTML-Inhalt geladen wurde
+    loadAndInsertFooter();
   } catch (error) {
     console.error(`Fehler beim Abrufen des Ordnerinhalts: ${error}`);
   }
