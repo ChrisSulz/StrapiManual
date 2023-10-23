@@ -72,3 +72,12 @@ To generate your own user manual, follow these steps:
 
 3. You can customize the text at the end of `manual.html` by modifying `footer.txt`:
    > /cypress/reports-custom/footer.txt
+
+### Side notes
+
+```javascript
+// cy.visit("www.example.com");
+```
+
+By commenting out commands, they won't be executed by Cypress during the test run, but they still appear as instructions in the respective HTML output and, consequently, in `manual.html`.  
+This can be advantageous when you only want to provide an instruction to the end user, but the execution within a test could have significant consequences.

@@ -73,3 +73,12 @@ npx cypress run
 
 3. Der Text am Ende von `manual.html` lässt sich durch Anpassung von `footer.txt` selbst bestimmen:
    > /cypress/reports-custom/footer.txt
+
+### Hinweise
+
+```javascript
+// cy.visit("www.example.com");
+```
+
+Durch das Auskommentieren von Befehlen werden diese zwar nicht von Cypress zur Testlaufzeit ausgeführt, aber sie erscheinen trotzdessen als Anweisung in der jeweiligen HTML-Ausgabe und dementsprechend in `manual.html`.  
+Dies kann von Vorteil sein, wenn lediglich eine Anweisung gegeben werden soll für den Endbenutzer, diese jedoch größere Folgen bei der Ausführung innerhalb eines Tests hätte.
