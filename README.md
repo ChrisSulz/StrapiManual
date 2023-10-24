@@ -117,7 +117,7 @@ To correctly and completely display `manual.html` with the inclusion of `manual.
 
 #### PDF Generation
 
-The script `generatePDF.js` allows for the generation of a complete PDF using [Puppeteer](https://pptr.dev/), containing all the information from `manual.html`. To execute this, it is assumed that `manual.html` is being run on a local server environment (Port: 5500) (see the note on Server Environment).
+The script `generatePDF.js` allows for the generation of a complete PDF using [Puppeteer](https://pptr.dev/), containing all the information from `manual.html`. To execute this, it is assumed that `manual.html` is being run on a local server environment (Port: 5500) _(see the note on Server Environment)_.
 
 Navigate to the corresponding folder where `generatePDF.js` is located:
 
