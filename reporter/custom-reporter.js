@@ -3,9 +3,7 @@ const path = require("path");
 
 class CustomReporter {
   constructor(runner, options) {
-    this.outputDir =
-      (options.reporterOptions && options.reporterOptions.reportDir) ||
-      "cypress/custom-reports";
+    this.outputDir = (options.reporterOptions && options.reporterOptions.reportDir) || "cypress/custom-reports";
     this.testResults = [];
 
     // (Mocha) Event-Listener für Test-Suite "describe" --> currentTest
@@ -32,10 +30,7 @@ class CustomReporter {
     runner.on("end", () => {
       this.testResults.push(this.currentTest);
       const htmlContent = this.generateHTML();
-      const outputPath = path.resolve(
-        this.outputDir,
-        `${this.currentTest.describe}.html`
-      );
+      const outputPath = path.resolve(this.outputDir, `${this.currentTest.describe}.html`);
       fs.writeFileSync(outputPath, htmlContent);
     });
   }
@@ -98,12 +93,9 @@ class CustomReporter {
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
     const getMatch = command.match(/cy\.get[\s\S]*?;/);
-    const containsClickMatch = command.match(
-      /cy\.contains[\s\S]*?\.click[\s\S]*?;/
-    );
+    const containsClickMatch = command.match(/cy\.contains[\s\S]*?\.click[\s\S]*?;/);
     const scrollMatch =
-      command.match(/cy\.[\s\S]*?\.scrollTo[\s\S]*?;/) ||
-      command.match(/cy\.[\s\S]*?\.scrollIntoView[\s\S]*?;/);
+      command.match(/cy\.[\s\S]*?\.scrollTo[\s\S]*?;/) || command.match(/cy\.[\s\S]*?\.scrollIntoView[\s\S]*?;/);
     const logMatch = command.match(/cy\.log[\s\S]*?;/);
 
     switch (true) {
@@ -130,16 +122,10 @@ class CustomReporter {
       // Befehlsfolgen von cy.get()
       case !!getMatch:
         // Filtern jeweiliger cy.get()-Befehle
-        const getCodeMirrorMatch = command.match(
-          /cy\.get\("\.CodeMirror-scroll"\)[\s\S]*?;/
-        );
-        const getContainsTypeMatch = command.match(
-          /cy\.get[\s\S]*?\.contains[\s\S]*?\.type\("([^"]+)"\);/
-        );
+        const getCodeMirrorMatch = command.match(/cy\.get\("\.CodeMirror-scroll"\)[\s\S]*?;/);
+        const getContainsTypeMatch = command.match(/cy\.get[\s\S]*?\.contains[\s\S]*?\.type\("([^"]+)"\);/);
         const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
-        const getContainsMatch = command.match(
-          /cy\.get[\s\S]*?\.contains\("([^"]+)"\);/
-        );
+        const getContainsMatch = command.match(/cy\.get[\s\S]*?\.contains\("([^"]+)"\);/);
 
         switch (true) {
           // Spezialfall: cy.get(".CodeMirror-scroll").type("..."); => Textfeld (p)
@@ -150,9 +136,7 @@ class CustomReporter {
           // Ausgewählte cy.get()-Elemente (Selektion mithilfe "contains()"), in welche etwas getippt wird (p)
           // Bsp.: cy.get("input")...contains("name")...type("...");
           case !!getContainsTypeMatch:
-            const getTypeTarget = getContainsTypeMatch[0].match(
-              /[\s\S]*?\.contains\("([^"]+)"/
-            )[1];
+            const getTypeTarget = getContainsTypeMatch[0].match(/[\s\S]*?\.contains\("([^"]+)"/)[1];
             html += `<p>Input a <span class="InputTarget">${getTypeTarget}</span> entry</p>\n`;
             break;
 
@@ -163,37 +147,33 @@ class CustomReporter {
 
             switch (true) {
               // Spezialfall: cy.get("...").contains("Delete item line ...").click();
-              case !!getClickMatch[0].match(
-                /[\s\S]*?\.contains\("Delete item line[\s\S]*?/
-              ):
+              case !!getClickMatch[0].match(/[\s\S]*?\.contains\("Delete item line[\s\S]*?/):
                 getClickTarget = "Delete";
                 break;
               // cy.get(input#...).click();
-              case !!getClickMatch[0].match(/[\s\S]*?input/):
-                const getInputTarget = getClickMatch[0].match(
-                  /[\s\S]*?.get\("input#([^"]+)"/
-                )[1];
+              case !!getClickMatch[0].match(/[\s\S]*?input#/):
+                const getInputTarget = getClickMatch[0].match(/[\s\S]*?.get\("input#([^"]+)"/)[1];
                 html += `<p>Input a <span class="InputTarget">${getInputTarget}</span> entry</p>\n`;
                 break;
               // cy.get(button#...).click();
               case !!getClickMatch[0].match(/[\s\S]*?button#/):
-                const getButtonInputTarget = getClickMatch[0].match(
-                  /[\s\S]*?.get\("button#([^"]+)"/
-                )[1];
+                const getButtonInputTarget = getClickMatch[0].match(/[\s\S]*?.get\("button#([^"]+)"/)[1];
                 html += `<p>Choose a <span class="InputTarget">${getButtonInputTarget}</span> entry</p>\n`;
                 break;
               // cy.get(...).first().click();
               case !!getClickMatch[0].match(/[\s\S]*?\.first/):
-                const getFirstClickTarget = getClickMatch[0].match(
-                  /[\s\S]*?\.contains\("([^"]+)"/
-                )[1];
+                const getFirstClickTarget = getClickMatch[0].match(/[\s\S]*?\.contains\("([^"]+)"/)[1];
                 html += `<p>Click on any <span class="firstClickTarget">${getFirstClickTarget}</span> entry</p>\n`;
                 break;
               // cy.get(...).contains("...").click();
               case !!getClickMatch[0].match(/[\s\S]*?\.contains[\s\S]*?/):
-                getClickTarget = getClickMatch[0].match(
-                  /[\s\S]*?\.contains\("([^"]+)"/
-                )[1];
+                // if case: cy.get(...).contains("...")...input[type="checkbox"]...click();
+                if (getClickMatch[0].match(/[\s\S]*?input\[type="checkbox"\][\s\S]*?;/)) {
+                  const getContainsTarget = getClickMatch[0].match(/[\s\S]*?\.contains\("([^"]+)"/)[1];
+                  html += `<p>Select an item from <span class="clickTarget">${getContainsTarget}</span></p>\n`;
+                  break;
+                }
+                getClickTarget = getClickMatch[0].match(/[\s\S]*?\.contains\("([^"]+)"/)[1];
                 break;
               // cy.get(... "...").click();
               default:
@@ -201,16 +181,13 @@ class CustomReporter {
                 break;
             }
 
-            if (getClickTarget)
-              html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
+            if (getClickTarget) html += `<p>Click on <span class="clickTarget">${getClickTarget}</span></p>\n`;
             break;
 
           // Ausgewählte cy.get()-Elemente per .contains() (p)
           // Bsp.: cy.get("h1").contains("Aussteller");
           case !!getContainsMatch:
-            const getTarget = getMatch[0].match(
-              /[\s\S]*?\.contains\("([^"]+)"/
-            )[1];
+            const getTarget = getMatch[0].match(/[\s\S]*?\.contains\("([^"]+)"/)[1];
             html += `<p>You are now in section <span class="getTarget">${getTarget}</span></p>\n`;
             break;
         }
