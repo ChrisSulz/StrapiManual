@@ -97,11 +97,13 @@ class CustomReporter {
     // Filtern jeweiliger Befehle
     const screenshotMatch = command.match(/cy\.screenshot[\s\S]*?;/);
     const visitMatch = command.match(/cy\.visit[\s\S]*?;/);
-    const scrollMatch = command.match(/cy\.scrollTo[\s\S]*?;/);
     const getMatch = command.match(/cy\.get[\s\S]*?;/);
     const containsClickMatch = command.match(
       /cy\.contains[\s\S]*?\.click[\s\S]*?;/
     );
+    const scrollMatch =
+      command.match(/cy\.[\s\S]*?\.scrollTo[\s\S]*?;/) ||
+      command.match(/cy\.[\s\S]*?\.scrollIntoView[\s\S]*?;/);
     const logMatch = command.match(/cy\.log[\s\S]*?;/);
 
     switch (true) {
@@ -120,9 +122,9 @@ class CustomReporter {
         break;
 
       // Scroll in gewisse Richtung
-      // Bsp.: cy.scrollTo("bottom");
+      // Bsp.: cy.scrollTo("...");
       case !!scrollMatch:
-        html += `<p>Scroll down</p>\n`;
+        html += `<p>Scroll to the desired section</p>\n`;
         break;
 
       // Befehlsfolgen von cy.get()
@@ -131,15 +133,27 @@ class CustomReporter {
         const getCodeMirrorMatch = command.match(
           /cy\.get\("\.CodeMirror-scroll"\)[\s\S]*?;/
         );
+        const getContainsTypeMatch = command.match(
+          /cy\.get[\s\S]*?\.contains[\s\S]*?\.type\("([^"]+)"\);/
+        );
         const getClickMatch = command.match(/cy\.get[\s\S]*?\.click[\s\S]*?;/);
         const getContainsMatch = command.match(
           /cy\.get[\s\S]*?\.contains\("([^"]+)"\);/
         );
 
         switch (true) {
-          // Spezialfall: cy.get(".CodeMirror-scroll").type("..."); => Textfeld
+          // Spezialfall: cy.get(".CodeMirror-scroll").type("..."); => Textfeld (p)
           case !!getCodeMirrorMatch:
             html += `<p>Write something into the <span class="InputTarget">text field</span></p>\n`;
+            break;
+
+          // Ausgewählte cy.get()-Elemente (Selektion mithilfe "contains()"), in welche etwas getippt wird (p)
+          // Bsp.: cy.get("input")...contains("name")...type("...");
+          case !!getContainsTypeMatch:
+            const getTypeTarget = getContainsTypeMatch[0].match(
+              /[\s\S]*?\.contains\("([^"]+)"/
+            )[1];
+            html += `<p>Input a <span class="InputTarget">${getTypeTarget}</span> entry</p>\n`;
             break;
 
           // Ausgewählte cy.get()-Elemente zum Anklicken als Text (p)

@@ -17,7 +17,13 @@ describe("03 Homepage", () => {
     cy.get("h1").contains("Homepage");
     cy.get("input#ueberschrift").click();
     cy.get("input#zeitraum").click();
-    cy.get(".CodeMirror-scroll");
+    // Begrüßungstext
+    cy.get("span")
+      .contains("begruessung")
+      .closest("div")
+      .next("div")
+      .find(".CodeMirror-scroll")
+      .type("{upArrow}");
     // cy.get("button span").contains("Save").click({ force: true });
 
     cy.wait(1000);
@@ -39,7 +45,17 @@ describe("03 Homepage", () => {
     });
 
     cy.get("h1").contains("Homepage");
-    cy.scrollTo("bottom");
+
+    cy.get(
+      'div[aria-describedby="alumniStorie-item-instructions"]'
+    ).scrollIntoView({ offset: { top: -100, left: 0 } });
+
+    cy.wait(1000);
+    cy.screenshot("contentmanager-homepage-03", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
     cy.get("label").contains("alumniStorie");
     cy.get(
       'div[aria-describedby="alumniStorie-item-instructions"] + div button span'
@@ -54,11 +70,41 @@ describe("03 Homepage", () => {
     });
 
     cy.wait(1000);
-    cy.get("input#alumniStorie\\.1\\.name").click();
-    // cy.get(".CodeMirror-scroll");
-    // cy.get("button span")
-    //   .contains("Click to add an asset or drag and drop one in this area")
-    //   .click({ force: true });
+    // Name der Alumni-Story
+    cy.get(
+      'div[aria-describedby="alumniStorie-item-instructions"] > div:last-of-type'
+    )
+      .contains("name")
+      .closest("label")
+      .next("div")
+      .find("input")
+      .type("test name");
+    // Beschreibung der Alumni-Story
+    cy.get(
+      'div[aria-describedby="alumniStorie-item-instructions"] > div:last-of-type'
+    )
+      .contains("beschreibung")
+      .closest("div")
+      .next("div")
+      .find(".CodeMirror-scroll")
+      .type("test description");
+    // (Asset) Bild wird hinzugefügt
+    cy.get(
+      'div[aria-describedby="alumniStorie-item-instructions"] > div:last-of-type'
+    )
+      .contains("bild")
+      .closest("label")
+      .next("div")
+      .find("button span")
+      .contains("Click to add an asset or drag and drop one in this area")
+      .click();
+
+    cy.wait(1000);
+    cy.screenshot("homepage-alumni-stories-assets-bild", {
+      capture: "viewport",
+      overwrite: true,
+    });
+
     // cy.get("button span").contains("Save").click({ force: true });
   });
 });
