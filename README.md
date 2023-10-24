@@ -75,9 +75,25 @@ To generate your own user manual, follow these steps:
 
 ### Side notes
 
+By commenting out commands, they won't be executed by Cypress during the test run, but they still appear as instructions in the respective HTML output and, consequently, in `manual.html`:
+
 ```javascript
 // cy.visit("www.example.com");
 ```
 
-By commenting out commands, they won't be executed by Cypress during the test run, but they still appear as instructions in the respective HTML output and, consequently, in `manual.html`.  
 This can be advantageous when you only want to provide an instruction to the end user, but the execution within a test could have significant consequences.
+
+---
+
+By creating a `credentials.json`, the automatic login process can be used with `cy.login()`:
+
+```json
+{
+  "user": "user@email.com",
+  "password": "password"
+}
+```
+
+The `credentials.json` must be created manually at this location:
+
+> /cypress/support/credentials.json
