@@ -2,9 +2,9 @@
 
 ## Projektinformationen
 
-Mithilfe von **Cypress** sollte innerhalb der Ausarbeitung meiner Bachelorarbeit für das CMS **Strapi** ein **Benutzerhandbuch** automatisch generiert werden.  
+Mithilfe von **[Cypress](https://www.cypress.io/)** sollte innerhalb der Ausarbeitung meiner Bachelorarbeit für das CMS **[Strapi](https://strapi.io/)** ein **Benutzerhandbuch** automatisch generiert werden.  
 Basis hierfür war die Website von **[SKB-virtuell](https://skb-virtuell.de/)**.  
-Durch Befehlsketten von vereinzelten Cypress-Tests und der Berichtsgenerierung durch die Erweiterung mittels **Mocha custom reports** war es mir möglich, HTML-Dokumente jeder Testsammlung zu generieren und zu einer **manual.html** zusammenzufassen.  
+Durch Befehlsketten von vereinzelten Cypress-Tests und der Berichtsgenerierung durch die Erweiterung mittels **[Mocha custom reports](https://mochajs.org/api/)** war es mir möglich, HTML-Dokumente jeder Testsammlung zu generieren und zu einer **manual.html** zusammenzufassen.  
 Für eine einfachere Bedienung innerhalb der manual.html sorgen unter anderem die automatische Generierung eines **klickbaren Inhaltsverzeichnisses**, der **"scroll-up"-Button** und die bereits in herkömmlichen Browsern integrierte **Suchfunktion** per Strg+F.
 
 ### Projektstruktur

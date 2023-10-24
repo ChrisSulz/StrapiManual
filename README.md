@@ -4,9 +4,9 @@
 
 ## Project Information
 
-Using **Cypress**, a **user manual** for the **Strapi** CMS was automatically generated as part of my bachelor's thesis.  
+Using **[Cypress](https://www.cypress.io/)**, a **user manual** for the CMS **[Strapi](https://strapi.io/)** was automatically generated as part of my bachelor's thesis.  
 The basis for this project was the website at **[SKB-virtuell](https://skb-virtuell.de/)**.  
-By chaining individual Cypress tests and generating reports with the help of **Mocha custom reports**, I was able to create HTML documents for each test suite and consolidate them into a **manual.html**.  
+By chaining individual Cypress tests and generating reports with the help of **[Mocha custom reports](https://mochajs.org/api/)**, I was able to create HTML documents for each test suite and consolidate them into a **manual.html**.  
 For ease of use within the manual.html, features include automatic generation of a **clickable table of contents**, the **"scroll-up" button**, and the built-in **search function** available in standard web browsers using Ctrl+F.
 
 ### Project Structure
