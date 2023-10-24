@@ -33,19 +33,21 @@ Programmierter Mocha custom reporter:
 
 Um ein eigenes Benutzerhandbuch zu generieren sind folgende Schritte notwendig:
 
-1. Alle Abhängigkeiten installieren:
+1. Installiere [NodeJS](https://nodejs.org/)
+
+2. Alle Abhängigkeiten installieren:
 
 ```bash
 npm install
 ```
 
-2. Cypress installieren:
+3. Cypress installieren:
 
 ```bash
 npm install cypress
 ```
 
-3. Tests innerhalb `/cypress/e2e/` anlegen:
+4. Tests innerhalb `/cypress/e2e/` anlegen:
 
 - Der Dateiname muss identisch mit der im Cypress-Test genutzten Beschreibung sein  
   Bsp.: `01 Test.cy.js` als Dateiname, also Test bestehend aus: `describe("01 Test", () => { ... });`
@@ -54,7 +56,7 @@ npm install cypress
 - Die Testgruppen (`it()`) sollten zur Übersicht ebenfalls mit einem Zahlenwert oder optional einer Buchstabenfolge beginnen  
   Bsp.: `it("A First Operation")`
 
-4. Generierung der einzelnen Berichte und des gesamten Benutzerhandbuchs `manual.html`  
+5. Generierung der einzelnen Berichte und des gesamten Benutzerhandbuchs `manual.html`  
    Zielverzeichnis: `/cypress/reports-custom/`
 
 ```bash
@@ -76,6 +78,8 @@ npx cypress run
 
 ### Hinweise
 
+#### Kommentieren von Befehlen
+
 Durch das Auskommentieren von Befehlen werden diese zwar nicht von Cypress zur Testlaufzeit ausgeführt, aber sie erscheinen trotzdessen als Anweisung in der jeweiligen HTML-Ausgabe und dementsprechend in `manual.html`:
 
 ```javascript
@@ -85,6 +89,8 @@ Durch das Auskommentieren von Befehlen werden diese zwar nicht von Cypress zur T
 Dies kann von Vorteil sein, wenn lediglich eine Anweisung gegeben werden soll für den Endbenutzer, diese jedoch größere Folgen bei der Ausführung innerhalb eines Tests hätte.
 
 ---
+
+#### Zugangsdaten
 
 Durch das Erstellen einer `credentials.json` kann das automatische Loginverfahren per `cy.login()` genutzt werden:
 
@@ -98,3 +104,35 @@ Durch das Erstellen einer `credentials.json` kann das automatische Loginverfahre
 Die `credentials.json` muss hier manuell angelegt werden:
 
 > /cypress/support/credentials.json
+
+---
+
+#### Serverumgebung
+
+Um `manual.html` korrekt und vollständig mit Zunahme von `manual.js` anzuzeigen kann man beispielsweise eine lokale Serverumgebung mithilfe von [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) von [VSCode](https://code.visualstudio.com/) bereitstellen.
+
+---
+
+#### PDF-Generierung
+
+Das Skript `generatePDF.js` ermöglicht es mithilfe von [Puppeteer](https://pptr.dev/), dass eine vollständige PDF generiert wird, in der alle Informationen von `manual.html` enthalten sind. Zur Ausführung ist vorausgesetzt, dass `manual.html` auf einer lokalen Serverumgebung (Port: 5500) ausgeführt wird _(siehe Hinweis zu Serverumgebung)_.
+
+Navigiere in den entsprechenden Ordner, in dem sich `generatePDF.js` befindet:
+
+```bash
+cd .\cypress\reports-custom\
+```
+
+Zur Ausführung nutze folgenden Befehl:
+
+```bash
+node node generatePDF.js
+```
+
+Die generierte `manual.pdf` befindet sich nun im entsprechenden Ordner `\cypress\reports-custom\` .
+
+Der Standardpfad, sowie -port zur Serverumgebung, kann in `\cypress\reports-custom\generatePDF.js` angepasst werden:
+
+```javascript
+http://localhost:5500/cypress/reports-custom/manual.html
+```

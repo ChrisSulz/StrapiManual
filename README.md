@@ -35,19 +35,21 @@ For ease of use within the manual.html, features include automatic generation of
 
 To generate your own user manual, follow these steps:
 
-1. Install all dependencies:
+1. Install **[NodeJS](https://nodejs.org/)**
+
+2. Install all dependencies:
 
    ```bash
    npm install
    ```
 
-2. Install Cypress:
+3. Install Cypress:
 
    ```bash
    npm install cypress
    ```
 
-3. Create tests within `/cypress/e2e/`:
+4. Create tests within `/cypress/e2e/`:
 
 - The filename must match the description used in the Cypress test  
   Example: `01 Test.cy.js` as the filename for a test described as `describe("01 Test", () => { ... });`
@@ -56,7 +58,7 @@ To generate your own user manual, follow these steps:
 - Test groups (`it()`) should also begin with a numerical value or optionally a sequence of letters for clarity  
   Example: Use `it("A First Operation")`
 
-4. Generate individual reports and the entire user manual `manual.html`  
+5. Generate individual reports and the entire user manual `manual.html`  
    Target directory: `/cypress/reports-custom/`
 
    ```bash
@@ -78,6 +80,8 @@ To generate your own user manual, follow these steps:
 
 ### Side notes
 
+#### Commenting on commands
+
 By commenting out commands, they won't be executed by Cypress during the test run, but they still appear as instructions in the respective HTML output and, consequently, in `manual.html`:
 
 ```javascript
@@ -87,6 +91,8 @@ By commenting out commands, they won't be executed by Cypress during the test ru
 This can be advantageous when you only want to provide an instruction to the end user, but the execution within a test could have significant consequences.
 
 ---
+
+#### Credentials
 
 By creating a `credentials.json`, the automatic login process can be used with `cy.login()`:
 
@@ -100,3 +106,35 @@ By creating a `credentials.json`, the automatic login process can be used with `
 The `credentials.json` must be created manually at this location:
 
 > /cypress/support/credentials.json
+
+---
+
+#### Server Environment
+
+To correctly and completely display `manual.html` with the inclusion of `manual.js`, you can, for example, set up a local server environment using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) from [VSCode](https://code.visualstudio.com/).
+
+---
+
+#### PDF Generation
+
+The script `generatePDF.js` allows for the generation of a complete PDF using [Puppeteer](https://pptr.dev/), containing all the information from `manual.html`. To execute this, it is assumed that `manual.html` is being run on a local server environment (Port: 5500) (see the note on Server Environment).
+
+Navigate to the corresponding folder where `generatePDF.js` is located:
+
+```bash
+cd .\cypress\reports-custom\
+```
+
+To execute, use the following command:
+
+```bash
+node node generatePDF.js
+```
+
+The generated `manual.pdf` is now located in the corresponding folder `\cypress\reports-custom\` .
+
+The default path and port for the server environment can be adjusted in `\cypress\reports-custom\generatePDF.js`:
+
+```javascript
+http://localhost:5500/cypress/reports-custom/manual.html
+```
