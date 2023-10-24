@@ -33,21 +33,21 @@ describe("02 Expert Lectures", () => {
     cy.get("button#start_time").click().get("#start_time-option-12-00").click();
     cy.get("button#end_time").click().get("#end_time-option-14-00").click();
     cy.get("input#title").click().type("test title");
-    cy.get(".CodeMirror-scroll").type(
-      "This is just a test typing to fill the text input with enough characters."
-    );
+    // Textfeld
+    cy.get("span")
+      .contains("text")
+      .closest("div")
+      .next("div")
+      .find(".CodeMirror-scroll")
+      .type(
+        "This is just a test typing to fill the text input with enough characters."
+      );
     cy.get("button span").contains("Save").click({ force: true });
-
     cy.wait(1000);
-    cy.screenshot("fachvortrag-saved", {
-      capture: "viewport",
-      overwrite: true,
-    });
-
     cy.get("button span").contains("Publish").click({ force: true });
 
     cy.wait(1000);
-    cy.screenshot("fachvortrag-published", {
+    cy.screenshot("fachvortrag-saved-published", {
       capture: "viewport",
       overwrite: true,
     });
