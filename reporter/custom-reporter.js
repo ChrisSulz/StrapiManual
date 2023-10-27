@@ -215,12 +215,12 @@ class CustomReporter {
         // Hinweis-Meldung ("hint: ")
         if (logPhrase.toLowerCase().startsWith("hint: "))
           html += `<p class="log-hint">${logPhrase.substring("hint: ".length)}</p>\n`;
-        // Warn-Meldung ("warning: ")
-        else if (logPhrase.toLowerCase().startsWith("warning: "))
-          html += `<p class="log-warning">${logPhrase.substring("warning: ".length)}</p>\n`;
         // Vorsicht-Meldung ("attention: ")
         else if (logPhrase.toLowerCase().startsWith("attention: "))
           html += `<p class="log-attention">${logPhrase.substring("attention: ".length)}</p>\n`;
+        // Warn-Meldung ("warning: ")
+        else if (logPhrase.toLowerCase().startsWith("warning: "))
+          html += `<p class="log-warning">${logPhrase.substring("warning: ".length)}</p>\n`;
         // Standardmeldung
         else html += `<p class="log">${logPhrase}</p>\n`;
         break;

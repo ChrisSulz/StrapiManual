@@ -103,6 +103,8 @@ cy.log("warning: This is a warning and will be highlighted accordingly!");
 
 In the output in the manual, the corresponding prefixes (if present) are automatically removed, and the following text is formatted accordingly to the prefix.
 
+![log-examples](assets/log-examples.png)
+
 ---
 
 #### Credentials

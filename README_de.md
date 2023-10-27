@@ -101,6 +101,8 @@ cy.log("warning: Dies ist eine Warnung und wird entsprechend als solche hervorge
 
 In der Ausgabe im Benutzerhandbuch werden die entsprechenden Präfixe (falls vorhanden) automatisch entfernt und der nachfolgende Text passend zum Präfix formatiert.
 
+![log-examples](assets/log-examples.png)
+
 ---
 
 #### Zugangsdaten
