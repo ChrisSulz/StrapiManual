@@ -83,9 +83,13 @@ function createTableOfContents() {
     const tocItem = document.createElement("li");
     const anchor = document.createElement("a");
 
-    const [chapter, ...titleArray] = heading.textContent.split(" ");
-    const title = titleArray.join(" ");
-    anchor.innerHTML = `<span id="chapter">${chapter}</span> <span id="title">${title}</span>\n`;
+    if (/^\d/.test(heading.textContent) || /^[A-Za-z] /.test(heading.textContent)) {
+      const [chapter, ...titleArray] = heading.textContent.split(" ");
+      const title = titleArray.join(" ");
+      anchor.innerHTML = `<span id="chapter">${chapter}</span> <span id="title">${title}</span>\n`;
+    } else {
+      anchor.innerHTML = `<span id="title">${heading.textContent}</span>\n`;
+    }
 
     // Fügt eine ID zu den Überschriften hinzu, um das Scrollen zu ermöglichen
     const headingId = `heading-${index}`;

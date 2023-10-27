@@ -61,18 +61,26 @@ class CustomReporter {
     // BODY
     this.testResults.forEach((test) => {
       // cy.describe als Überschrift (h1)
-      const [descChapter, ...descTitleArray] = test.describe.split(" ");
-      const descTitle = descTitleArray.join(" ");
       resultHTML += `<div class="h1Container">\n`;
-      resultHTML += `<h1><span id="chapter">${descChapter}</span> <span id="title">${descTitle}</span></h1>\n`;
+      if (/^\d/.test(test.describe) || /^[A-Za-z] /.test(test.describe)) {
+        const [descChapter, ...descTitleArray] = test.describe.split(" ");
+        const descTitle = descTitleArray.join(" ");
+        resultHTML += `<h1><span id="chapter">${descChapter}</span> <span id="title">${descTitle}</span></h1>\n`;
+      } else {
+        resultHTML += `<h1><span id="title">${test.describe}</span></h1>\n`;
+      }
       resultHTML += `</div>\n`;
 
       test.steps.forEach((step) => {
         // cy.it als Unterüberschrift (h2)
-        const [itChapter, ...itTitleArray] = step.title.split(" ");
-        const itTitle = itTitleArray.join(" ");
         resultHTML += `<div class="h2Container">\n`;
-        resultHTML += `<h2><span id="chapter">${itChapter}</span> <span id="title">${itTitle}</span></h2>\n`;
+        if (/^\d/.test(step.title) || /^[A-Za-z] /.test(step.title)) {
+          const [itChapter, ...itTitleArray] = step.title.split(" ");
+          const itTitle = itTitleArray.join(" ");
+          resultHTML += `<h2><span id="chapter">${itChapter}</span> <span id="title">${itTitle}</span></h2>\n`;
+        } else {
+          resultHTML += `<h2><span id="title">${step.title}</span></h2>\n`;
+        }
         resultHTML += `</div>\n`;
 
         step.commands.forEach((command) => {
