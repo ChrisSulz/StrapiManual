@@ -3,3 +3,7 @@ contact information:
 Sample Inc.
 Street 1a
 12345 City
+
+
+Strapi v4.10.2
+Cypress v13.0.0
