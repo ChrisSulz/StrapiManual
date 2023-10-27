@@ -92,6 +92,19 @@ This can be advantageous when you only want to provide an instruction to the end
 
 ---
 
+#### Text Output
+
+It is possible to generate text outputs for the user manual using `cy.log()`. Different display formats are possible using the optional prefixes `hint`, `warning`, and `attention`. To make these recognizable by the custom reporter, a colon `:` and a space are required after them.  
+Example:
+
+```javascript
+cy.log("warning: This is a warning and will be highlighted accordingly!");
+```
+
+In the output in the manual, the corresponding prefixes (if present) are automatically removed, and the following text is formatted accordingly to the prefix.
+
+---
+
 #### Credentials
 
 By creating a `credentials.json`, the automatic login process can be used with `cy.login()`:

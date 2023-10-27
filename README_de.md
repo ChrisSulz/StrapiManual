@@ -90,6 +90,19 @@ Dies kann von Vorteil sein, wenn lediglich eine Anweisung gegeben werden soll f�
 
 ---
 
+#### Textausgabe
+
+Es ist möglich mithilfe von `cy.log()` Textausgaben für das Benutzerhandbuch generieren zu lassen. Mithilfe von den optionalen Präfixen `hint`, `warning` und `attention` sind verschiedene Darstellungsformen möglich. Um diese vom custom-reporter erkennen zu lassen sind nachfolgende ein Doppelpunkt `:` und ein Leerzeichen nachfolgend notwendig.  
+Beispiel:
+
+```javascript
+cy.log("warning: Dies ist eine Warnung und wird entsprechend als solche hervorgehoben!");
+```
+
+In der Ausgabe im Benutzerhandbuch werden die entsprechenden Präfixe (falls vorhanden) automatisch entfernt und der nachfolgende Text passend zum Präfix formatiert.
+
+---
+
 #### Zugangsdaten
 
 Durch das Erstellen einer `credentials.json` kann das automatische Loginverfahren per `cy.login()` genutzt werden:

@@ -212,7 +212,17 @@ class CustomReporter {
       // Bsp.: cy.log("Here you can see the overview of Strapi.");
       case !!logMatch:
         const logPhrase = logMatch[0].match(/"([^"]+)"/)[1];
-        html += `<p>${logPhrase}</p>\n`;
+        // Hinweis-Meldung ("hint: ")
+        if (logPhrase.toLowerCase().startsWith("hint: "))
+          html += `<p class="log-hint">${logPhrase.substring("hint: ".length)}</p>\n`;
+        // Warn-Meldung ("warning: ")
+        else if (logPhrase.toLowerCase().startsWith("warning: "))
+          html += `<p class="log-warning">${logPhrase.substring("warning: ".length)}</p>\n`;
+        // Vorsicht-Meldung ("attention: ")
+        else if (logPhrase.toLowerCase().startsWith("attention: "))
+          html += `<p class="log-attention">${logPhrase.substring("attention: ".length)}</p>\n`;
+        // Standardmeldung
+        else html += `<p class="log">${logPhrase}</p>\n`;
         break;
     }
     return html;
