@@ -59,6 +59,12 @@ function loadAndInsertFooter() {
       });
 
       footerContainer.appendChild(p); // Fügt den Footer-Inhalt in das .footer-Element ein
+
+      // Zeitstempel am Ende hinzufügen
+      const timestampElement = document.createElement("p");
+      timestampElement.classList.add("timestamp");
+      timestampElement.innerText = `\n\nGenerated on: ${new Date().toLocaleString()}`;
+      document.querySelector(".footer").appendChild(timestampElement);
     })
     .catch((error) => {
       console.error(`Fehler beim Laden des Footers: ${error}`);
@@ -93,16 +99,14 @@ function createTableOfContents() {
       tocList.appendChild(tocItem);
       currentTocItem = tocItem;
     } else if (heading.tagName === "H2" && currentTocItem) {
-      const subList =
-        currentTocItem.querySelector("ul") || document.createElement("ul");
+      const subList = currentTocItem.querySelector("ul") || document.createElement("ul");
       subList.classList.add("sub-toc-list");
       subList.appendChild(tocItem);
       tocList.appendChild(subList);
     }
   });
 
-  tocContainer.innerHTML =
-    '<h1><span id="toc-headline">Table of contents</span></h1>';
+  tocContainer.innerHTML = '<h1><span id="toc-headline">Table of contents</span></h1>';
   tocContainer.appendChild(tocList);
 }
 
