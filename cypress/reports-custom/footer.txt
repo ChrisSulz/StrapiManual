@@ -1,9 +1,10 @@
-contact information:
+Contact:
 
 Sample Inc.
 Street 1a
 12345 City
 
 
+Software Version:
 Strapi v4.10.2
 Cypress v13.0.0

@@ -7,12 +7,10 @@
 body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   margin: 0;
-  padding-bottom: 15px;
+  padding-inline: 15%;
+  padding-block: 30px;
   font-family: Arial, sans-serif;
-  text-align: center;
 }
 
 div {
@@ -27,8 +25,8 @@ div > div + div {
 
 img {
   display: block;
-  margin: 10px auto;
-  width: min(80%, 1000px);
+  margin-block: 10px;
+  width: min(100%, 800px);
   height: auto;
   border: 1px solid #ccc;
 }
@@ -38,16 +36,16 @@ a {
 }
 
 p {
-  margin: 10px;
+  margin-block: 10px;
 }
 
 h1 {
-  margin: 20px;
+  margin: 20px 0;
 }
 
 hr {
-  width: 80%;
   margin-block: 20px;
+  width: 100%;
 }
 
 #scroll-to-top-button {
@@ -73,21 +71,24 @@ hr {
 }
 
 .header {
-  width: min(60%, 800px);
-}
-
-.header h1,
-.header h3 {
-  font-size: 1rem;
-}
-
-.header h2 {
-  font-size: 1.9rem;
-  text-align: center;
+  width: min(90%, 800px);
+  margin-block: 10px;
 }
 
 .logo {
   max-width: 80px;
+  margin-block: 20px;
+}
+
+.header h1,
+.header h3 {
+  font-size: 1.2rem;
+  margin-block: 10px;
+}
+
+.header h2 {
+  font-size: 2rem;
+  margin-block: 20px;
 }
 
 #toc-headline {
@@ -132,13 +133,6 @@ hr {
   padding-top: 20px;
 }
 
-.h1Container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
 h1 #title,
 h1 #chapter {
   padding: 1px 6px;
@@ -150,10 +144,6 @@ h1 #chapter {
 
 .h2Container {
   margin: 40px 0 15px 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
 }
 
 .h1Container + .h2Container {
