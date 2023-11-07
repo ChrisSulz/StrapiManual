@@ -1,7 +1,7 @@
-const placeholder = document.querySelector(".main-content");
-const tocContainer = document.querySelector(".toc");
 const scrollToTopButton = document.getElementById("scroll-to-top-button");
-const footerContainer = document.querySelector(".footer"); // Finde das Footer-Element
+const tocContainer = document.querySelector(".toc");
+const placeholder = document.querySelector(".main-content");
+const footerContainer = document.querySelector(".footer");
 
 // Button um nach oben zu scrollen
 window.addEventListener("scroll", function () {
