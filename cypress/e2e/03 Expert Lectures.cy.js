@@ -4,7 +4,7 @@ describe("03 Expert Lectures", () => {
   });
 
   it("A Create a new expert lecture", () => {
-    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.visit("https://skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Fachvortrag", { matchCase: false }).click();
 
@@ -24,12 +24,7 @@ describe("03 Expert Lectures", () => {
     });
 
     cy.get("input#aussteller").click().wait(250).type("{enter}");
-    cy.get("input#datum")
-      .click()
-      .wait(250)
-      .get("button")
-      .contains("28")
-      .click();
+    cy.get("input#datum").click().wait(250).get("button").contains("28").click();
     cy.get("button#start_time").click().get("#start_time-option-12-00").click();
     cy.get("button#end_time").click().get("#end_time-option-14-00").click();
     cy.get("input#title").click().type("test title");
@@ -39,9 +34,7 @@ describe("03 Expert Lectures", () => {
       .closest("div")
       .next("div")
       .find(".CodeMirror-scroll")
-      .type(
-        "This is just a test typing to fill the text input with enough characters."
-      );
+      .type("This is just a test typing to fill the text input with enough characters.");
     cy.get("button span").contains("Save").click({ force: true });
     cy.wait(1000);
     cy.get("button span").contains("Publish").click({ force: true });
@@ -54,7 +47,7 @@ describe("03 Expert Lectures", () => {
   });
 
   it("B Delete an expert lecture", () => {
-    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.visit("https://skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Fachvortrag", { matchCase: false }).click();
 

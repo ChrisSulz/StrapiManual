@@ -2,7 +2,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://test.skb-virtuell.de:8080/admin/",
+    baseUrl: "https://skb-virtuell.de:8080/admin/",
 
     reporter: "reporter/custom-reporter.js",
     reporterOptions: {

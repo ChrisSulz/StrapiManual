@@ -4,7 +4,7 @@ describe("02 Exhibitors", () => {
   });
 
   it("A Unpublishing an exhibitor", () => {
-    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.visit("https://skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Aussteller", { matchCase: false }).click();
 
@@ -43,7 +43,7 @@ describe("02 Exhibitors", () => {
   });
 
   it("B Publishing an exhibitor", () => {
-    cy.visit("https://test.skb-virtuell.de:8080/admin/");
+    cy.visit("https://skb-virtuell.de:8080/admin/");
     cy.get('li:contains("Content Manager")').click();
     cy.get("li span").contains("Aussteller", { matchCase: false }).click();
 
